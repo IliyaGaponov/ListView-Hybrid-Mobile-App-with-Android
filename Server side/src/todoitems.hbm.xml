@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="il.co.freebie.model.ToDoItem" table="TODOITEMS" entity-name="ToDoItem">
+		<id name="itemId" type="int" column="ID" >
+			<generator class="increment"/>
+		</id>
+		<property name="itemName">
+			<column name="ITEM"/>
+		</property>
+		<property name="lastDate">
+			<column name="DUETO"/>
+		</property>
+		<property name="userId">
+			<column name="USERID"/>
+		</property>
+	</class>
+</hibernate-mapping>

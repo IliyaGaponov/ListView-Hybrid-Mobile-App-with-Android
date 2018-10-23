@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+    <link rel="stylesheet" type="text/css" href="UIStyle.css"/>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <script type="text/javascript" src="Actions.js"></script>
+    <title></title>
+</head>
+<body>
+    <!-- Login -->
+    <div data-role="page" id="login" align="center" data-theme="c" >
+        <div data-role="content">
+            <br/>
+            <p align="center"><img src="ftask-logo.png" align="middle" height="135" width="135"></p>
+            <h1>Login</h1>
+            <br/>
+            <br/>
+            <form name="loginform">
+                <input type="text" placeholder="Username" name="username"
+                       id="logname" autocomplete="off"
+                       onkeydown="mainObj.cleanIncorrectMessage('incorrectInputMsg')"/>
+                <br/>
+
+                <input type="password" placeholder="Password" name="password" id="logpassword"
+                       onkeydown="mainObj.cleanIncorrectMessage('incorrectInputMsg')"/>
+                <small align="left" id="incorrectInputMsg" style="color: red"></small>
+                <br/>
+
+                <input type="button"  id="btnlogin" value="Sign in"
+                       data-theme="b" onclick="mainObj.login(username.value, password.value)"/>
+                <br/>
+
+                <p align="center"><a href="#registration" style="color: cornflowerblue">
+                    <small>Don't have an account? Register</small></a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Registration -->
+    <div data-role="page" id="registration" align="center" data-theme="c">
+        <div data-role="content">
+            <br/>
+            <p align="center"><img src="ftask-logo.png" align="middle" height="100" width="100"></p>
+            <h1>Registration</h1>
+            <br/>
+            <br/>
+            <form name="registrationform">
+                <input type="text" placeholder="Username" name="username"  id="usernamereg"
+                       onkeyup="mainObj.checkIfUserExists(this.value)" autocomplete="off"/>
+
+                <small align="left" id="usernameExists" style="color: red"></small>
+                <small align="left" id="incorrectusername" style="color: red"></small>
+                <br/>
+
+                <input type="password" placeholder="Password" name="password" id="passwordreg"
+                       onkeydown="mainObj.cleanIncorrectMessage('passwordmsg');
+                       mainObj.cleanIncorrectMessage('password2msg')"/>
+                <small align="left" id="passwordmsg" style="color: red"></small>
+                <br/>
+
+                <input type="password" placeholder="Confirm password"
+                       name="password2" id="password2reg"
+                       onkeydown="mainObj.cleanIncorrectMessage('password2msg')"/>
+                <small align="left" id="password2msg" style="color: red"></small>
+                <br/>
+
+                <input type="button" id="btnreg"  value="Register" data-theme="b"
+                       onclick="mainObj.register(username.value, password.value, password2.value)"/>
+                <br/>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main page -->
+    <div data-role="page" id="mainpage" data-theme="c">
+            <div data-role="header" data-position="fixed" data-theme="c">
+                <div data-role="navbar" data-type="horizontal" align="center" >
+                    <ul>
+                        <li><a href="#additempage" data-role="button" id="btnadd" data-icon="plus"
+                               style="background: space;  border-color: transparent; color: cornflowerblue"></a></li>
+                        <li></li>
+                        <li><small style="color: cornflowerblue">Tasks</small></li>
+                        <li></li>
+                        <li><a href="#mymenu" data-role="button" id="btnmenu" data-icon="bars"
+                               style="background: space;  border-color: transparent; color: cornflowerblue"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div data-role="content" id="contentmain">
+                <ul data-role="listview" id="itemsList" data-filter="true"
+                    data-filter-placeholder="Search...">
+                </ul>
+                <p style="color: cornflowerblue" align="center" id="emptylistmsg"></p>
+            </div>
+
+            <div data-role="panel" id="mymenu" data-position="right"
+                 data-theme="a" data-display="overlay">
+                <ul data-role="listview" data-theme="a" data-icon="false">
+                    <li class="ui-icon-home" id="usermenu" style="color: cornflowerblue"></li>
+                    <li data-role="list-divider" data-theme="a"></li>
+                    <li><a href="#aboutpage"><small>About</small></a></li>
+                    <li><a href="#"><small>Help</small></a></li>
+                    <li><a href="#" onclick="mainObj.logout()"><small>Logout</small></a></li>
+                </ul>
+            </div>
+    </div>
+
+    <!-- About -->
+    <div data-role="page" id="aboutpage" data-theme="c">
+        <div data-role="header" data-position="fixed" data-theme="c">
+            <a href="#mainpage" data-rel="back" style="background: space;  border-color: transparent;
+                     color: cornflowerblue" data-icon="arrow-l"
+               data-corners="false" data-iconpos="notext">
+            </a>
+            <h1 style="color: cornflowerblue"><small>About</small></h1>
+        </div>
+        <div data-role="content">
+            <br/>
+            <h2 align="center" style="color: purple">fTasks</h2>
+            <p align="center"><small><sup>App Version 1.0.0</sup></small></p>
+            <p align="center"><img src="ftask-logo.png" align="middle" height="145" width="145"></p>
+            <br/>
+            <p align="center"><small><sup>Your Tasks Manager</sup></small></p>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <p align="center"><small>
+                <sub>© 2017-2018 freebie Inc. <br/> All rights reserved. </sub></small></p>
+        </div>
+    </div>
+
+    <!-- New item -->
+    <div data-role="page" id="additempage" data-theme="c">
+        <div data-role="header" data-position="fixed" data-theme="c">
+             <a data-rel="back" style="background: space;  border-color: transparent; color: cornflowerblue"
+                data-icon="arrow-l" data-corners="false" data-iconpos="notext"
+                onclick="mainObj.cleanIncorrectMessage('newtaskmsg')"><small>Back</small></a>
+            <h1 id="newTaskLable" style="color: cornflowerblue"><small>New Task</small></h1>
+             <a data-role="button" style="background: space; border-color: transparent; color: cornflowerblue"
+                data-icon="check" data-iconpos="notext"
+                onclick="mainObj.addItem()"><small>Apply</small></a>
+        </div>
+
+        <div data-role="content">
+            <form name="newTaskForm">
+                <br/>
+                <label style="color: cornflowerblue"><small>What is to be done?</small></label>
+                <input type="text" id="enterTaskTextField" name="taskName"
+                       placeholder="Enter task here"
+                       autocomplete="off" onkeydown="mainObj.cleanIncorrectMessage('newtaskmsg')"/>
+                <small align="left" id="newtaskmsg" style="color: red"></small>
+                <br/><br/>
+                <label style="color: cornflowerblue" name="date" id="date" value="">
+                    <small>Due date</small></label>
+                <input type="date" id="enterDateTextField" data-role="date" name="lastDate"
+                       placeholder="Enter the last date here" autocomplete="off"/>
+            </form>
+        </div>
+    </div>
+
+    <!-- Update item -->
+    <div data-role="page" id="updateitempage" data-theme="c">
+        <div data-role="header" data-position="fixed" data-theme="c">
+            <a data-rel="back" style="background: space;  border-color: transparent; color: cornflowerblue"
+               data-icon="arrow-l" data-corners="false" data-iconpos="notext"
+            onclick="mainObj.cleanIncorrectMessage('edittaskmsg')"><small>Back</small></a>
+            <h1  style="color: cornflowerblue"><small>Edit Task</small></h1>
+            <a data-role="button" style="background: space; border-color: transparent; color: cornflowerblue"
+               data-icon="check" data-iconpos="notext" id="applyUpdate"><small>Apply</small></a>
+        </div>
+
+        <div data-role="content">
+            <form name="editTaskForm">
+                <br/>
+                <label style="color: cornflowerblue"><small>What is to be done?</small></label>
+                <input type="text" id="editTaskTextField" name="taskName"
+                       placeholder="Enter task here"
+                       autocomplete="off" onkeydown="mainObj.cleanIncorrectMessage('edittaskmsg')"/>
+                <small align="left" id="edittaskmsg" style="color: red"></small>
+                <br/><br/>
+                <label style="color: cornflowerblue" name="date" id="editdate" value="">
+                    <small>Due date</small></label><!--ADD DATE FUNC -->
+                <input type="date" id="editDateTextField" data-role="date" name="lastDate"
+                       placeholder="Enter the last date here"/>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
